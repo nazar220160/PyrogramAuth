@@ -43,7 +43,7 @@ async def get_number(message: types.Message, state: FSMContext):
         await bot.send_chat_action(message.from_user.id, types.ChatActions.TYPING)
         async with state.proxy() as data:
             client_id = str(message.from_user.id)
-            client = Client(client_id, 1, "b6b154c3707471f5339bd661645ed3d6", in_memory=True, test_mode=True)
+            client = Client(client_id, 1, "b6b154c3707471f5339bd661645ed3d6", in_memory=True, test_mode=False)
             await client.connect()
 
             try:
@@ -69,13 +69,11 @@ async def get_number(message: types.Message, state: FSMContext):
 
                 await message.answer(f"<b>Ошибка, слишком много попыток входа, попробуйте через <code>{e.value}</code> {end}</b>")
                 await client.disconnect()
-                clients.pop(client_id)
                 await state.finish()
 
             except PhoneNumberInvalid:
                 await message.answer("<b>Неверный номер телефона</b>")
                 await client.disconnect()
-                clients.pop(client_id)
                 await state.finish()
     else:
         await message.answer("<b>Неправильный формат номера телефона</b>")
