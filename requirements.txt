@@ -1,0 +1,4 @@
+Pyrogram==2.0.35
+aiogram==2.21
+colorama==0.4.5
+TgCrypto==1.2.3
